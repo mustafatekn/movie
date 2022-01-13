@@ -1,1 +1,2 @@
 export const SET_RESULTS = 'SET_RESULTS';
+export const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES"

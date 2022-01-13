@@ -7,11 +7,8 @@ export default function Search() {
   const [searchString, setSearchString] = useState("");
   const dispatch = useDispatch();
 
-  const test = useSelector(state => state.results);
-
   useEffect(() => {
     dispatch(getResults(searchString))
-    console.log(test);
   },[searchString]);
 
   return (

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SET_RESULTS } from "./actionTypes";
+import { SET_RESULTS, ADD_TO_FAVOURITES } from "./actionTypes";
 
 export const getResults = (searchString) => (dispatch) => {
   const url = `https://api.themoviedb.org/3/search/movie?api_key=726dd70a1ae0647cf0af648e6cd034c2&query=${searchString}`;
@@ -17,3 +17,7 @@ export const getResults = (searchString) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const addToFavourites = (result) => (dispatch) => {
+  dispatch({type:ADD_TO_FAVOURITES, payload:result});
+}
