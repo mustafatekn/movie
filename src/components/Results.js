@@ -4,9 +4,9 @@ import Result from "./Result";
 
 export default function Results() {
     const results = useSelector(state => state.results);
-
+    const favourites = useSelector(state => state.favourites);
   return (
-    <div className="table-responsive">
+    <div className="table">
       <table className="table align-middle">
           <thead>
               <tr>
@@ -22,7 +22,7 @@ export default function Results() {
               {!results ? ( <p>Looks like you did not search anything yet</p>)
               : (
                   results.map(result => (
-                      <Result result={result} key={result.id}/>
+                      <Result result={result} key={result.id} favourites={favourites}/>
                   ))
               )}
           </tbody>

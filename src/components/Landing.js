@@ -7,10 +7,10 @@ export default function Landing() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-lg-2">
           <SideBar />
         </div>
-        <div className="col-md-10">
+        <div className="col-lg-10">
           <Search />
           <Results />
         </div>

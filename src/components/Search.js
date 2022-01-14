@@ -11,11 +11,12 @@ export default function Search() {
   },[searchString]);
 
   return (
-    <div className="">
+    <div className="py-4">
+      <h5 id="searchTitle">Search for films</h5>
       <input
         type="text"
         onChange={(e) => setSearchString(e.target.value)}
-        className="form-control"
+        className="form-control mt-4"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-sm"
       />

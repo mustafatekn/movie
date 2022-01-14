@@ -1,27 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import RemoveButton from "./RemoveButton";
 
 export default function SideBar() {
+  const [visibility, setVisibility] = useState(false)
+  const [screenWidth,setScreenWidth] = useState();
   const favourites = useSelector((state) => state.favourites);
+  
+  
+  const handleClick = (e) => {
+    if(e.target.offsetWidth > 300){
+      setVisibility(!visibility);
+    }else{
+      setVisibility(true)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('resize', setScreenWidth(window.innerWidth));
+    if(screenWidth > 992){
+      setVisibility(true)
+    }
+
+  },[screenWidth])
 
   return (
-    <div className="bg-dark p-3" id="sidebar">
-      <h5 className="text-white">Favourites ({favourites.length})</h5>
+    <div className="bg-dark p-3 py-4" id="sidebar">
+      <h5 onClick={(e) => handleClick(e)} className="text-white" id="sidebarHeading">Favourites ({favourites.length})</h5>
 
-      <div className="my-4">
+      {visibility && <div className="my-4"
+         id="sidebarFavouritesWrapper">
       {favourites.length === 0 ? (
-        <p className="text-white">
+        <p className="text-muted">
           Looks like you did not favourite any movie yet.
         </p>
       ) : (
-        favourites.map((favourite) => (
-          <div className="row my-2" key={favourite.id}>
-              <div className="col-md-10"><p className="text-white">{favourite.title}</p></div>
-              <div className="col-md-2"><button type="button" className="btn btn-sm btn-danger">-</button></div>
+        <div className="d-flex flex-column">
+        {favourites.map((favourite) => (
+        <div className="flex-row my-1" key={favourite.id}>
+          <div className="d-flex justify-content-between">
+            <span className="text-white">{favourite.title}</span>
+            <RemoveButton title="-" movie={favourite}/>
           </div>
-        ))
-      )}
+
+        </div>
+      ))}
       </div>
+      )}
+      </div>}
     </div>
   );
 }
