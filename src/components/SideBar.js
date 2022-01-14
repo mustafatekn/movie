@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 import RemoveButton from "./RemoveButton";
 
 export default function SideBar() {
   const [visibility, setVisibility] = useState(false)
   const [screenWidth,setScreenWidth] = useState();
+
   const favourites = useSelector((state) => state.favourites);
-  
+  const loadingAdd = useSelector((state) => state.loadingAdd);
+  const loadingRemove = useSelector((state) => state.loadingRemove)
   
   const handleClick = (e) => {
     if(e.target.offsetWidth > 300){
@@ -25,28 +28,31 @@ export default function SideBar() {
   },[screenWidth])
 
   return (
-    <div className="bg-dark p-3 py-4" id="sidebar">
-      <h5 onClick={(e) => handleClick(e)} className="text-white" id="sidebarHeading">Favourites ({favourites.length})</h5>
+    <div className="p-3 py-4 border" id="sidebar">
+      <h2 onClick={(e) => handleClick(e)} id="sidebarHeading">Favourites ({favourites.length})</h2>
 
-      {visibility && <div className="my-4"
+      {visibility && <div className="mt-5"
          id="sidebarFavouritesWrapper">
-      {favourites.length === 0 ? (
+      {favourites.length === 0 && !(loadingAdd || loadingRemove) && 
         <p className="text-muted">
           Looks like you did not favourite any movie yet.
         </p>
-      ) : (
-        <div className="d-flex flex-column">
+      }
+      
+      {favourites.length > 0 && (loadingAdd || loadingRemove) && <Loader/>}
+
+      {favourites.length > 0 && !(loadingAdd || loadingRemove) && 
+        <div className="d-flex flex-column mt-3" id="favourites">
         {favourites.map((favourite) => (
         <div className="flex-row my-1" key={favourite.id}>
           <div className="d-flex justify-content-between">
-            <span className="text-white">{favourite.title}</span>
+            <span>{favourite.title}</span>
             <RemoveButton title="-" movie={favourite}/>
           </div>
-
         </div>
       ))}
       </div>
-      )}
+      }
       </div>}
     </div>
   );
