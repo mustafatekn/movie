@@ -29,7 +29,7 @@ export default function SideBar() {
 
   return (
     <div className="p-3 py-4 border" id="sidebar">
-      <h2 onClick={(e) => handleClick(e)} id="sidebarHeading">Favourites ({favourites.length})</h2>
+      <h1 onClick={(e) => handleClick(e)} className="h3" id="sidebarHeading">Favourites ({favourites.length})</h1>
 
       {visibility && <div className="mt-5"
          id="sidebarFavouritesWrapper">
